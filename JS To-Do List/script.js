@@ -1,43 +1,56 @@
 const addItemBtn = document.getElementById('button-add');
-const input = document.getElementById("listInput");
-const ulEl = document.getElementById('list');
+const listInput = document.getElementById("listInput");
+const listContainer = document.getElementById('list');
+const removeBtn = document.getElementsByTagName("img");
 
+let userInput = [];
 
 function addItem(userToDo) {
 
-    const listLength = document.getElementById('list').children.length;
-    console.log(listLength)
+    listContainer.innerHTML = '';
 
-    const listItem = `
-        <li class="list-item">
-            <div class="form-check ml-1">
-                <input class="form-check-input " type="checkbox" id="list${listLength + 1}">
-                    <label class="form-check-label" for="list${listLength + 1}">
-                        ${userToDo}
+    userToDo.forEach(item => {
+
+        const arrayLength = userToDo.length;
+
+        const listItem = `
+                  <li class="list-item">
+                <div class="form-check d-flex ml-1">
+                    <input class="form-check-input" type="checkbox" id="list${arrayLength + 1}">
+                    <label class="form-check-label mr-auto" for="list${arrayLength + 1}">
+                        ${item}
                     </label>
-            </div>
-        </li>`
+                        <img class="mr-2 " id="removeBtn" src="img/dash-circle.svg" alt="">
+                </div>
+            </li>`
 
-    ulEl.insertAdjacentHTML("afterbegin", listItem);
+        listContainer.insertAdjacentHTML("afterbegin", listItem);
+    })
 }
 
+function delBtn(collection) {
+
+}
+
+
+// Event Listeners
 addItemBtn.addEventListener('click', function getInputValue(e) {
     e.preventDefault();
 
-    let inputValue = input.value;
+    userInput.push(listInput.value);
+    addItem(userInput);
 
-    addItem(inputValue)
-
-    input.value = '';
-
-
+    listInput.value = '';
+    let labelValue = document.getElementsByTagName('label');
+    console.log(removeBtn);
 })
 
-input.addEventListener('keydown', function (e) {
+listInput.addEventListener('keydown', function (e) {
     if (e.key === "Enter") {
         e.preventDefault();
         addItemBtn.click();
     }
 });
+
 
 
