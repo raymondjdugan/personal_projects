@@ -1,0 +1,48 @@
+@font-face {
+    font-family: Dot Matrix;
+    src: url("font/DOTMATRI.TTF");
+}
+body {
+    font-family: "Dot Matrix", sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: greenyellow;
+
+}
+#time-element, #date-element {
+    font-size: 25px;
+    flex-basis: 100%;
+    margin: 1em 0;
+}
+#time-element {
+    display: flex;
+    justify-content: center;
+
+}
+@media (min-width: 768px) {
+    #date-element {
+        font-size: 50px;
+    }
+    #time-element{
+        font-size: 100px;
+    }
+}
+@media (min-width: 1440px ) {
+    #date-element {
+        font-size: 75px;
+    }
+    #time-element {
+        font-size: 150px;
+    }
+}
+@media (min-width: 2560px ) {
+    #date-element {
+        font-size: 100px;
+    }
+    #time-element {
+        font-size: 200px;
+    }
+}
