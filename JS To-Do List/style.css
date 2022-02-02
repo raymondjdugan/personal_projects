@@ -1,4 +1,56 @@
+:root{
+    --blue: #22AED1;
+    --magnolia: #ECE8EF;
+}
+*{
+    color: #525252;
+}
+.card {
+    background-color: var(--magnolia);
+}
+.card-header, .card-footer{
+    background-color: #22AED1;
+}
+.input-group {
+    outline: none;
+    background-color: var(--magnolia);
+}
+.form-control{
+    border-top: none;
+    background-color: var(--magnolia);
+
+}
 ul {
     list-style-type: none;
     height: 75vh;
+}
+.list-check{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.list-check span {
+   flex-grow: 1;
+    font-weight: bold;
+}
+.list-check svg {
+    margin-right: 1em;
+}
+#list li{
+    border: 1px solid rgba(0,0,0,.125);
+    border-right-style: none;
+    border-left-style: none;
+}
+#list input {
+    margin: 0 .5em;
+}
+#list button {
+    border: none;
+    background: none;
+}
+button:hover, button:focus{
+    outline: none;
+}
+#date {
+    font-weight: bold;
 }

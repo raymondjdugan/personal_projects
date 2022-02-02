@@ -1,36 +1,47 @@
-$(document).ready(function () {
-
+$().ready(function () {
     let userInput = []
     let storage = JSON.parse(localStorage.getItem('list'));
-
-    console.log($('#list li'))
     if (storage) {
         userInput = storage;
     } else if (!storage) {
         userInput = []
     }
-    $('#list').html(addItem(userInput))
 
-    function addItem() {
+    const storeList = function (){
+        localStorage.setItem('list', JSON.stringify(userInput));
+    }
+
+    const addItem = function () {
         let html = "";
         let idNum = 0;
         userInput.forEach(item => {
-            html += `<li class="list-check item${idNum += 1}"><input class="checked item${idNum += 1}" type="checkbox">${item}</li>`
+            html += `<li class="list-check">
+                    <input class="checked item" type="checkbox"><span>${item}</span>
+                      <button id="btn${idNum + 1}" class="deleteBtn"><i class="far fa-minus-square" id=""></i></button>
+                    </li>`
         });
         return html;
-    };
-    $('#button-add').click(function (e) {
-        const listInput = $('#listInput');
-        userInput.push(listInput.val());
-        console.log(userInput)
-        listInput.val(" ")
-        localStorage.setItem('list', JSON.stringify(userInput));
-        $('#list').html(addItem(userInput))
+    }
+    $('#list').html(addItem(userInput))
 
+    $('#button-add-todo').click(function (e) {
+        e.preventDefault()
+        const listInput = $('#listInput');
+        console.log(listInput.val().length)
+        if (listInput.val().length <= 0) {
+            alert('Nothing to add')
+        } else {
+            userInput.push(listInput.val().charAt(0).toUpperCase() + listInput.val().slice(1));
+            listInput.val(" ")
+            storeList()
+        }
+        $('#list').empty().html(addItem(userInput))
+        location.reload();
     })
+
     $('#listInput').keypress(function (e) {
         if (e.key === 'Enter') {
-            $('#button-add').click();
+            $('#button-add-todo').click();
         }
     })
 
@@ -45,23 +56,21 @@ $(document).ready(function () {
         return new Intl.DateTimeFormat(lang, options).format()
     });
 
-    $('.checked').on('change', function () {
+    $('#list .checked').on('change', function () {
+        const index = $('.checked').index(this)
         if (this.checked) {
-            $('#list li').css('background-color', 'black')
+            $('#list li').eq(index).css('background-color', 'green')
         } else if (this.checked === false) {
             $('#list li').css('background-color', 'white')
         }
     })
-
+    $('.deleteBtn').click(function () {
+        const deleteBtnIndex = $('.deleteBtn').index(this)
+        $('#list li').eq(deleteBtnIndex).remove()
+        userInput.splice(deleteBtnIndex,1)
+        storeList()
+    })
 })
-
-
-function delBtn(collection) {
-
-}
-
-
-// Event Listeners
 
 
 
